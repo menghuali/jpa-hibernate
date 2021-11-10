@@ -1,12 +1,12 @@
 package com.aloha.spring.jpahibernate.repo;
 
 import javax.persistence.EntityManager;
-import javax.transaction.Transactional;
 
 import com.aloha.spring.jpahibernate.entity.Course;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Repository
@@ -20,7 +20,11 @@ public class CourseRepo {
     }
 
     public Course save(Course course) {
-        return em.merge(course);
+        if (course.getId() == null)
+            em.persist(course);
+        else
+            em.merge(course);
+        return course;
     }
 
     public Course deleteById(Long id) {
