@@ -3,6 +3,7 @@ package com.aloha.spring.jpahibernate.repo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.aloha.spring.jpahibernate.entity.Course;
 
@@ -24,11 +25,13 @@ public class CourseRepoTests {
         assertEquals("JPA in 50 Steps", course.getName());
     }
 
+    @DirtiesContext
     @Test
     public void testSave_Persist() {
         Course course = repo.save(new Course("New Class"));
         assertNotNull(course);
-        assertEquals(3L, course.getId());
+        assertNotNull(course.getId());
+        assertTrue(course.getId() > 0);
         assertEquals("New Class", course.getName());
     }
 
@@ -51,6 +54,20 @@ public class CourseRepoTests {
         assertEquals(1L, course.getId());
         assertEquals("JPA in 50 Steps", course.getName());
         assertNull(repo.findById(1L));
+    }
+
+    @DirtiesContext
+    @Test
+    public void testPlayWithEntityManager_1() {
+       Course course = repo.playWithEntityManager();
+       assertEquals("[Update-1]Play with Entity Manager - 1", course.getName());
+    }
+
+    @DirtiesContext
+    @Test
+    public void testPlayWithEntityManager_2() {
+       Course course = repo.playWithEntityManager_Refresh();
+       assertEquals("Play with Entity Manager - 2", course.getName());
     }
 
 }

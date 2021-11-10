@@ -27,6 +27,8 @@ public class JpaHibernateApplication implements CommandLineRunner {
 		Course course = courseRepo.save(new Course("New Course"));
 		log.info("SAVE COURSE: {}", course);
 		log.info("DELETE COURSE BY ID({}): {}", course.getId(), courseRepo.deleteById(course.getId()));
+		log.info("PLAY WITH ENTITY MANAGER");
+		courseRepo.playWithEntityManager();
 	}
 
 }

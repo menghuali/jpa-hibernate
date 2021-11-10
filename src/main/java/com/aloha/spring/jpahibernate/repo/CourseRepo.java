@@ -34,4 +34,36 @@ public class CourseRepo {
         return course;
     }
 
+    /**
+     * Sample of Entity Manager
+     * 
+     * @return the record from DBF
+     */
+    public Course playWithEntityManager() {
+        Course course = new Course("Play with Entity Manager - 1");
+        em.persist(course);
+        course.setName("[Update-1]Play with Entity Manager - 1"); // EM tracks this operation. It will be saved to DB //
+                                                                  // even if em.persist isn't called explicitly
+        em.flush(); // flush the entities to DB
+        em.detach(course); // Detach entity from EM so that the subsequent operations won't go to DB.
+        course.setName("[Update-2]Play with Entity Manager - 1");
+        // em.clear(); // option-B Detach all entities from EM.
+        return findById(course.getId());
+    }
+
+    /**
+     * Sample of Entity Manager - Refresh
+     * 
+     * @return the record from DB
+     */
+    public Course playWithEntityManager_Refresh() {
+        Course course = new Course("Play with Entity Manager - 2");
+        em.persist(course);
+        em.flush();
+        course.setName("[Updated] Play with Entity Manager - 2");
+        em.refresh(course); // It refreshes entity with DB data. CAUTION: Make sure when you call this
+                            // method the record is in DB; otherwise exception will occurr!
+        return course;
+    }
+
 }
