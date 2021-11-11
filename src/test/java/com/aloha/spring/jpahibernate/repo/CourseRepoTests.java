@@ -3,12 +3,14 @@ package com.aloha.spring.jpahibernate.repo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.aloha.spring.jpahibernate.entity.Course;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.DirtiesContext;
 
 @SpringBootTest
@@ -57,15 +59,25 @@ public class CourseRepoTests {
     @DirtiesContext
     @Test
     public void testPlayWithEntityManager_1() {
-       Course course = repo.playWithEntityManager();
-       assertEquals("[Update-1]Play with Entity Manager - 1", course.getName());
+        Course course = repo.playWithEntityManager();
+        assertEquals("[Update-1]Play with Entity Manager - 1", course.getName());
     }
 
     @DirtiesContext
     @Test
     public void testPlayWithEntityManager_2() {
-       Course course = repo.playWithEntityManager_Refresh();
-       assertEquals("Play with Entity Manager - 2", course.getName());
+        Course course = repo.playWithEntityManager_Refresh();
+        assertEquals("Play with Entity Manager - 2", course.getName());
+    }
+
+    @Test
+    public void testNameNullable() {
+        try {
+            repo.save(new Course());
+            fail("Exception should occur");
+        } catch (DataIntegrityViolationException e) {
+            e.printStackTrace();
+        }
     }
 
 }

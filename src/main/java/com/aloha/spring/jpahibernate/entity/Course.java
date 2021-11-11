@@ -1,5 +1,6 @@
 package com.aloha.spring.jpahibernate.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,6 +24,7 @@ public class Course {
 
     @Setter
     @Getter
+    @Column(name = "fullname", nullable = false)
     private String name;
 
     public Course(String name) {
