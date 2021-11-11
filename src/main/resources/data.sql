@@ -1,1 +1,1 @@
-insert into course(id, name) values(hibernate_sequence.nextval, 'JPA in 50 Steps');
+insert into course_details(id, name) values(hibernate_sequence.nextval, 'JPA in 50 Steps');

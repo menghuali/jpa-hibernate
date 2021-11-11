@@ -3,7 +3,6 @@ package com.aloha.spring.jpahibernate.repo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.aloha.spring.jpahibernate.entity.Course;
 
@@ -30,8 +29,7 @@ public class CourseRepoTests {
     public void testSave_Persist() {
         Course course = repo.save(new Course("New Class"));
         assertNotNull(course);
-        assertNotNull(course.getId());
-        assertTrue(course.getId() > 0);
+        assertEquals(2L, course.getId());
         assertEquals("New Class", course.getName());
     }
 
