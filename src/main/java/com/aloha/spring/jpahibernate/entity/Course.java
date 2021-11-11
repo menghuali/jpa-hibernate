@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,6 +22,10 @@ import lombok.ToString;
 @NoArgsConstructor
 @Entity
 @Table(name = "CourseDetails")
+@NamedQueries(value = {
+    @NamedQuery(name = "query_get_all_courses", query = "SELECT c FROM Course c"),
+    @NamedQuery(name = "query_find_course_jpa_x_steps", query = "SELECT c FROM Course c WHERE name LIKE 'JPA in % Steps'")
+})
 public class Course {
 
     @Getter
