@@ -3,7 +3,10 @@ package com.aloha.spring.jpahibernate.repo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
+
+import java.time.LocalDateTime;
 
 import com.aloha.spring.jpahibernate.entity.Course;
 
@@ -78,6 +81,27 @@ public class CourseRepoTests {
         } catch (DataIntegrityViolationException e) {
             e.printStackTrace();
         }
+    }
+
+    @DirtiesContext
+    @Test
+    public void testCreatedTime() {
+        Course course = repo.save(new Course("New Course"));
+        assertNotNull(course.getCreatedTime());
+        assertNotNull(course.getLastUpdatedTime());
+    }
+
+    @DirtiesContext
+    @Test
+    public void testLastUpdatedTime() throws InterruptedException {
+        Course course = repo.findById(1L);
+        LocalDateTime updatedTime1 = course.getLastUpdatedTime();
+        Thread.sleep(200);
+        course.setName(course.getName() + " Updated");
+        repo.save(course);
+
+        course = repo.findById(1L);
+        assertTrue(updatedTime1.compareTo(course.getLastUpdatedTime()) < 0);
     }
 
 }

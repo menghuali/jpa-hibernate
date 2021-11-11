@@ -1,1 +1,1 @@
-insert into course_details(id, fullname) values(hibernate_sequence.nextval, 'JPA in 50 Steps');
+insert into course_details(id, fullname, created_time, last_updated_time) values(hibernate_sequence.nextval, 'JPA in 50 Steps', sysdate(), sysdate());
