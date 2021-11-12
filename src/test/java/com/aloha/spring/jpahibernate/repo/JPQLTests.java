@@ -23,47 +23,37 @@ public class JPQLTests {
    @Test
    public void testQuery_Uptyped() {
       List result = em.createQuery("SELECT c FROM Course c").getResultList();
-      assertEquals(1, result.size());
-      Course course = (Course) result.get(0);
-      assertNotNull(course);
-      assertEquals(1L, course.getId());
+      assertEquals(3, result.size());
    }
 
    @Test
    public void testQuery_Typed() {
       List<Course> result = em.createQuery("SELECT c FROM Course c", Course.class).getResultList();
-      assertEquals(1, result.size());
-      Course course = result.get(0);
-      assertNotNull(course);
-      assertEquals(1L, course.getId());
+      assertEquals(3, result.size());
    }
 
    @Test
    public void testQuery_WhereClause() {
-      List<Course> result = em.createQuery("SELECT c FROM Course c WHERE name LIKE 'JPA in % Steps'", Course.class)
+      List<Course> result = em.createQuery("SELECT c FROM Course c WHERE name LIKE '%Bat%'", Course.class)
             .getResultList();
       assertEquals(1, result.size());
       Course course = result.get(0);
       assertNotNull(course);
-      assertEquals(1L, course.getId());
+      assertEquals(1001L, course.getId());
    }
 
    @Test
    public void testNamedQuery_getAllCourses() {
       List<Course> result = em.createNamedQuery("query_get_all_courses", Course.class).getResultList();
-      assertEquals(1, result.size());
-      Course course = result.get(0);
-      assertNotNull(course);
-      assertEquals(1L, course.getId());
+      assertEquals(3, result.size());
    }
 
    @Test
    public void testNamedQuery_findCourseByName() {
-      List<Course> result = em.createNamedQuery("query_find_course_jpa_x_steps", Course.class).getResultList();
+      List<Course> result = em.createNamedQuery("query_find_course_spider", Course.class).getResultList();
       assertEquals(1, result.size());
       Course course = result.get(0);
-      assertNotNull(course);
-      assertEquals(1L, course.getId());
+      assertEquals(1000L, course.getId());
    }
 
 }

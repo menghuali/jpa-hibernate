@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -24,13 +25,14 @@ import lombok.ToString;
 @Table(name = "CourseDetails")
 @NamedQueries(value = {
     @NamedQuery(name = "query_get_all_courses", query = "SELECT c FROM Course c"),
-    @NamedQuery(name = "query_find_course_jpa_x_steps", query = "SELECT c FROM Course c WHERE name LIKE 'JPA in % Steps'")
+    @NamedQuery(name = "query_find_course_spider", query = "SELECT c FROM Course c WHERE name LIKE '%Spider%'")
 })
 public class Course {
 
     @Getter
-    @GeneratedValue
     @Id
+    @GeneratedValue(generator = "course_id_seq")
+    @SequenceGenerator(name = "course_id_seq", sequenceName = "COURSE_ID_SEQ", initialValue = 1000, allocationSize = 1)
     private Long id;
 
     @Setter

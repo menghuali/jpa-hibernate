@@ -23,10 +23,10 @@ public class CourseRepoTests {
 
     @Test
     public void testFindById() {
-        Course course = repo.findById(1L);
+        Course course = repo.findById(1000L);
         assertNotNull(course);
-        assertEquals(1L, course.getId());
-        assertEquals("JPA in 50 Steps", course.getName());
+        assertEquals(1000L, course.getId());
+        assertEquals("Become A Spider in 50 Steps", course.getName());
     }
 
     @DirtiesContext
@@ -34,28 +34,28 @@ public class CourseRepoTests {
     public void testSave_Persist() {
         Course course = repo.save(new Course("New Class"));
         assertNotNull(course);
-        assertEquals(2L, course.getId());
+        assertEquals(1003L, course.getId());
         assertEquals("New Class", course.getName());
     }
 
     @DirtiesContext
     @Test
     public void testSave_Merge() {
-        Course course = repo.findById(1L);
+        Course course = repo.findById(1000L);
         assertNotNull(course);
         course.setName("New Class");
         repo.save(course);
-        course = repo.findById(1L);
+        course = repo.findById(1000L);
         assertEquals("New Class", course.getName());
     }
 
     @DirtiesContext
     @Test
     public void testDeleteById() {
-        Course course = repo.deleteById(1L);
+        Course course = repo.deleteById(1000L);
         assertNotNull(course);
-        assertEquals(1L, course.getId());
-        assertEquals("JPA in 50 Steps", course.getName());
+        assertEquals(1000L, course.getId());
+        assertEquals("Become A Spider in 50 Steps", course.getName());
         assertNull(repo.findById(1L));
     }
 
@@ -94,13 +94,13 @@ public class CourseRepoTests {
     @DirtiesContext
     @Test
     public void testLastUpdatedTime() throws InterruptedException {
-        Course course = repo.findById(1L);
+        Course course = repo.findById(1000L);
         LocalDateTime updatedTime1 = course.getLastUpdatedTime();
         Thread.sleep(200);
         course.setName(course.getName() + " Updated");
         repo.save(course);
 
-        course = repo.findById(1L);
+        course = repo.findById(1000L);
         assertTrue(updatedTime1.compareTo(course.getLastUpdatedTime()) < 0);
     }
 
