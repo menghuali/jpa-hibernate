@@ -29,6 +29,12 @@ public class Student {
     @Column(name = "fullname", nullable = false)
     private String name;
 
+    /**
+     * Sample of One-to-One mapping. Eager Fetch is the default fetching option,
+     * where the referenced object will be fetched automatically.
+     * 
+     * To avoid automatic fetching referenced objects, use Lazy Fetch.
+     */
     @Setter
     @Getter
     @OneToOne(fetch = FetchType.LAZY)
