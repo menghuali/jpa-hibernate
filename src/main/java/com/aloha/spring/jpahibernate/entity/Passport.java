@@ -7,9 +7,11 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@NoArgsConstructor
 @ToString
 @Entity
 public class Passport {
@@ -24,5 +26,9 @@ public class Passport {
     @Getter
     @Column(name = "passport_num", nullable = false)
     private String number;
+
+    public Passport (String number) {
+        this.number = number;
+    }
 
 }
