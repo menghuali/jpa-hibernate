@@ -2,8 +2,10 @@ package com.aloha.spring.jpahibernate.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
 import lombok.Getter;
@@ -27,7 +29,17 @@ public class Passport {
     @Column(name = "passport_num", nullable = false)
     private String number;
 
-    public Passport (String number) {
+    /**
+     * Sample of Bidirectional One-to-One mapping. Set 'mappedBy' in OneToOne
+     * annotation to avoid duplicates IDs on passport side. Student owns the
+     * relationship.
+     */
+    @Setter
+    @Getter
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "passport")
+    private Student student;
+
+    public Passport(String number) {
         this.number = number;
     }
 
