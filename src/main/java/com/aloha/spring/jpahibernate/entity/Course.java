@@ -50,7 +50,7 @@ public class Course {
     @CreationTimestamp
     private LocalDateTime createdTime;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "courses") // Make Student the owner of relationship
     @Getter
     private List<Student> students = new ArrayList<>();
 
