@@ -7,8 +7,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.transaction.Transactional;
 
 import com.aloha.spring.jpahibernate.entity.Course;
+import com.aloha.spring.jpahibernate.entity.Review;
+import com.aloha.spring.jpahibernate.entity.Student;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,6 +107,22 @@ public class CourseRepoTests {
 
         course = repo.findById(1000L);
         assertTrue(updatedTime1.compareTo(course.getLastUpdatedTime()) < 0);
+    }
+
+    @Transactional
+    @Test
+    public void findCourseReviews() {
+        Course course = repo.findById(1001L);
+        List<Review> reviews = course.getReviews();
+        assertEquals(2, reviews.size());
+    }
+
+    @Transactional
+    @Test
+    public void findCourseStudents() {
+        Course course = repo.findById(1001L);
+        List<Student> students = course.getStudents();
+        assertEquals(2, students.size());
     }
 
 }
