@@ -1,8 +1,11 @@
 package com.aloha.spring.jpahibernate.repo;
 
+import java.util.Arrays;
+
 import javax.persistence.EntityManager;
 
 import com.aloha.spring.jpahibernate.entity.Course;
+import com.aloha.spring.jpahibernate.entity.Review;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -64,6 +67,15 @@ public class CourseRepo {
         em.refresh(course); // It refreshes entity with DB data. CAUTION: Make sure when you call this
                             // method the record is in DB; otherwise exception will occurr!
         return course;
+    }
+
+    public void addReviewForCourse(long courseId, Review... reviews) {
+        Course course = findById(courseId);
+        Arrays.stream(reviews).forEach(review -> {
+            review.setCourse(course);
+            course.addReview(review); // this step is not needed for persistence
+            em.persist(review); // persist review and assoicate it with the course
+        });
     }
 
 }

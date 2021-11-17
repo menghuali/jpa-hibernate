@@ -8,8 +8,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@NoArgsConstructor
 @Entity
 public class Review {
 
@@ -33,5 +35,10 @@ public class Review {
     @Getter
     @ManyToOne
     private Course course;
+
+    public Review(String rating, String description) {
+        this.rating = rating;
+        this.description = description;
+    }
 
 }

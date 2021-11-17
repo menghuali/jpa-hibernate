@@ -1,6 +1,7 @@
 package com.aloha.spring.jpahibernate;
 
-import com.aloha.spring.jpahibernate.repo.TransactionSandbox;
+import com.aloha.spring.jpahibernate.entity.Review;
+import com.aloha.spring.jpahibernate.repo.CourseRepo;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @SpringBootApplication
 public class JpaHibernateApplication implements CommandLineRunner {
 	@Autowired
-	private TransactionSandbox txSandbox;
+	private CourseRepo courseRepo;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JpaHibernateApplication.class, args);
@@ -21,11 +22,7 @@ public class JpaHibernateApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		txSandbox.multiOps1();
-		try {
-			txSandbox.multiOps2();
-		} catch (Exception e) {
-		}
+		courseRepo.addReviewForCourse(1000l, new Review("4", "Very Good!"), new Review("5", "Awsome!"));
 		log.info("End");
 	}
 
