@@ -24,20 +24,22 @@ public class OneToManyTests {
     private EntityManager em;
 
     @DirtiesContext
-    @Transactional
+    @Transactional // it's not needed if going with EAGER fetch
     @Test
     public void testAddReviews() {
-        Course course = repo.findById(1000L);
-        assertNotNull(course);
-        assertEquals(2, course.getReviews().size());
+        Course current = repo.findById(1001L);
+        assertEquals(1, current.getReviews().size());
 
-        Review review = new Review("4", "Very good!");
-        review.setCourse(course);
-        course.addReview(review);
-        em.persist(review); // persist review and assoicate it with the course
-
-        Course updated = repo.findById(1000L);
-        assertEquals(3, updated.getReviews().size());
+        repo.addReviewForCourse(1001L, new Review("4", "Very Good!"));
+        Course updated = repo.findById(1001L);
+        assertEquals(2, updated.getReviews().size());
     }
-    
+
+    @Test
+    public void testCourseOfReview() {
+        Review reivew = em.find(Review.class, 1000l);
+        assertNotNull(reivew);
+        assertEquals(1000l, reivew.getCourse().getId()); // ManyToOne going with EAGER fetch
+    }
+
 }

@@ -49,7 +49,7 @@ public class Course {
     @CreationTimestamp
     private LocalDateTime createdTime;
 
-    @OneToMany(mappedBy = "course")
+    @OneToMany(mappedBy = "course"/* , fetch = FetchType.EAGER */) // default fetch mode is LAZY
     @Getter
     private List<Review> reviews = new ArrayList<>();
 
