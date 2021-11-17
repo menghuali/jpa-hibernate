@@ -1,10 +1,14 @@
 package com.aloha.spring.jpahibernate.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
@@ -40,6 +44,10 @@ public class Student {
     @OneToOne(fetch = FetchType.LAZY)
     private Passport passport;
 
+    @ManyToMany
+    @Getter
+    private List<Course> courses = new ArrayList<>();
+
     public Student(String name) {
         this.name = name;
     }
@@ -47,6 +55,10 @@ public class Student {
     public Student(String name, Passport passport) {
         this.name = name;
         this.passport = passport;
+    }
+
+    public void addCourse(Course course) {
+        courses.add(course);
     }
 
 }

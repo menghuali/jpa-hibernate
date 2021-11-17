@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -49,6 +50,10 @@ public class Course {
     @CreationTimestamp
     private LocalDateTime createdTime;
 
+    @ManyToMany
+    @Getter
+    private List<Student> students = new ArrayList<>();
+
     @OneToMany(mappedBy = "course"/* , fetch = FetchType.EAGER */) // default fetch mode is LAZY
     @Getter
     private List<Review> reviews = new ArrayList<>();
@@ -63,6 +68,10 @@ public class Course {
 
     public boolean removeReview(Review review) {
         return reviews.remove(review);
+    }
+
+    public void addStudent(Student student) {
+        students.add(student);
     }
 
 }
