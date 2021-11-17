@@ -25,7 +25,7 @@ public class NativeQueryTests {
     public void testNativeQuery() {
         Query query = em.createNativeQuery("SELECT * FROM COURSE_DETAILS", Course.class);
         List<Course> results = query.getResultList();
-        assertEquals(3, results.size());
+        assertEquals(4, results.size());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class NativeQueryTests {
     @Test
     public void update() {
         Query query = em.createNativeQuery("UPDATE COURSE_DETAILS SET last_updated_time=SYSDATE()", Course.class);
-        assertEquals(3, query.executeUpdate());
+        assertEquals(4, query.executeUpdate());
     }
 
 }

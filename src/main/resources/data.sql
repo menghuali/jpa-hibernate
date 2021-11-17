@@ -20,6 +20,13 @@ VALUES(
         SYSDATE(),
         SYSDATE()
     );
+INSERT INTO COURSE_DETAILS(ID, FULLNAME, CREATED_TIME, LAST_UPDATED_TIME)
+VALUES(
+        2000,
+        'Become A superhero in X Steps',
+        SYSDATE(),
+        SYSDATE()
+    );
 -- Passports
 INSERT INTO PASSPORT(ID, PASSPORT_NUM)
 VALUES(PASSPORT_ID_SEQ.NEXTVAL, 'MARVEL_1');

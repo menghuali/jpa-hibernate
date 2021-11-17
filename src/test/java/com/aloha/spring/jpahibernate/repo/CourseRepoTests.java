@@ -57,11 +57,11 @@ public class CourseRepoTests {
     @DirtiesContext
     @Test
     public void testDeleteById() {
-        Course course = repo.deleteById(1000L);
+        Course course = repo.deleteById(2000L);
         assertNotNull(course);
-        assertEquals(1000L, course.getId());
-        assertEquals("Become A Spider in 50 Steps", course.getName());
-        assertNull(repo.findById(1L));
+        assertEquals(2000L, course.getId());
+        assertEquals("Become A superhero in X Steps", course.getName());
+        assertNull(repo.findById(2000L));
     }
 
     @DirtiesContext

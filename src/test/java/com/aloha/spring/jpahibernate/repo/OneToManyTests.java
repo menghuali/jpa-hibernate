@@ -28,11 +28,11 @@ public class OneToManyTests {
     @Test
     public void testAddReviews() {
         Course current = repo.findById(1001L);
-        assertEquals(1, current.getReviews().size());
+        assertEquals(2, current.getReviews().size());
 
         repo.addReviewForCourse(1001L, new Review("4", "Very Good!"));
         Course updated = repo.findById(1001L);
-        assertEquals(2, updated.getReviews().size());
+        assertEquals(3, updated.getReviews().size());
     }
 
     @Test

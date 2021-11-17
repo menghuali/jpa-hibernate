@@ -23,13 +23,13 @@ public class JPQLTests {
    @Test
    public void testQuery_Uptyped() {
       List result = em.createQuery("SELECT c FROM Course c").getResultList();
-      assertEquals(3, result.size());
+      assertEquals(4, result.size());
    }
 
    @Test
    public void testQuery_Typed() {
       List<Course> result = em.createQuery("SELECT c FROM Course c", Course.class).getResultList();
-      assertEquals(3, result.size());
+      assertEquals(4, result.size());
    }
 
    @Test
@@ -45,7 +45,7 @@ public class JPQLTests {
    @Test
    public void testNamedQuery_getAllCourses() {
       List<Course> result = em.createNamedQuery("query_get_all_courses", Course.class).getResultList();
-      assertEquals(3, result.size());
+      assertEquals(4, result.size());
    }
 
    @Test
