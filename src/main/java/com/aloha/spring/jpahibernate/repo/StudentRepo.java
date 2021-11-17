@@ -2,6 +2,7 @@ package com.aloha.spring.jpahibernate.repo;
 
 import javax.persistence.EntityManager;
 
+import com.aloha.spring.jpahibernate.entity.Course;
 import com.aloha.spring.jpahibernate.entity.Student;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,14 @@ public class StudentRepo {
         if (student != null)
             em.remove(student);
         return student;
+    }
+
+    public void insertStudentAndCourse(Student student, Course course) {
+        student.addCourse(course);
+        course.addStudent(student);
+
+        em.persist(student);
+        em.persist(course);
     }
 
 }
