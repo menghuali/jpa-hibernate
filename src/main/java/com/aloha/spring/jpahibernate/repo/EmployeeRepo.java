@@ -5,6 +5,8 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import com.aloha.spring.jpahibernate.entity.Employee;
+import com.aloha.spring.jpahibernate.entity.FullTimeEmployee;
+import com.aloha.spring.jpahibernate.entity.PartTimeEmployee;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,11 +23,19 @@ public class EmployeeRepo {
         em.persist(employee);
     }
 
-    public List<Employee> findAll() {
+    public List<Employee> findAllEmployee() {
         // Notice: JPA is case sensitive. Entity name must be exactly same as the class
         // name. In this case, it must be 'Employee'; 'EMPLOYEE' and 'employee' won't
         // work.
         return em.createQuery("SELECT e FROM Employee e", Employee.class).getResultList();
+    }
+
+    public List<PartTimeEmployee> findAllPartTimeEmployee() {
+        return em.createQuery("SELECT e FROM PartTimeEmployee e", PartTimeEmployee.class).getResultList();
+    }
+
+    public List<FullTimeEmployee> findAllFullTimeEmployee() {
+        return em.createQuery("SELECT e FROM FullTimeEmployee e", FullTimeEmployee.class).getResultList();
     }
 
 }

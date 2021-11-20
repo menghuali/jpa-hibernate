@@ -1,11 +1,9 @@
 package com.aloha.spring.jpahibernate.entity;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.SequenceGenerator;
 
 import lombok.AccessLevel;
@@ -14,10 +12,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+@MappedSuperclass // Other optiona to map inheritance. With this option, each subclass is a table, 
+                  // and the superclass is not mapped to any table.
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
-@Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+// @Entity
+// @Inheritance(strategy = InheritanceType.JOINED)
 // @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS) // One table per subclass
 // @Inheritance(strategy = InheritanceType.SINGLE_TABLE) // Default inheritance strategy. Fields of supper/sub classes are
 //                                                       // saved in one table

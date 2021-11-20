@@ -10,16 +10,16 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED) 
 @ToString
 @Entity
-public class FulltimeEmployee extends Employee {
+public class FullTimeEmployee extends Employee {
 
     @Setter
     @Getter
     private BigDecimal salary;
 
-    public FulltimeEmployee(String name, BigDecimal salary) {
+    public FullTimeEmployee(String name, BigDecimal salary) {
         super(name);
         this.salary = salary;
     }
