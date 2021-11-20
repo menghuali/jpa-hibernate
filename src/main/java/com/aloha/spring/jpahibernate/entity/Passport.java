@@ -14,7 +14,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "student")
 @Entity
 public class Passport {
 

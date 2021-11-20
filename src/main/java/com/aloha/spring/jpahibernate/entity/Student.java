@@ -20,7 +20,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 @NoArgsConstructor
-@ToString
+@ToString(exclude = "courses")
 @Entity
 public class Student {
 
