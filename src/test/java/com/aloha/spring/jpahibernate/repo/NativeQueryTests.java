@@ -23,14 +23,14 @@ public class NativeQueryTests {
 
     @Test
     public void testNativeQuery() {
-        Query query = em.createNativeQuery("SELECT * FROM COURSE_DETAILS", Course.class);
+        Query query = em.createNativeQuery("SELECT * FROM COURSE", Course.class);
         List<Course> results = query.getResultList();
         assertEquals(4, results.size());
     }
 
     @Test
     public void testNativeQuery_WhereClouse_PositionedParam() {
-        Query query = em.createNativeQuery("SELECT * FROM COURSE_DETAILS WHERE id=?1", Course.class);
+        Query query = em.createNativeQuery("SELECT * FROM COURSE WHERE id=?1", Course.class);
         query.setParameter(1, 1000L);
         List<Course> results = query.getResultList();
         assertEquals(1, results.size());
@@ -38,7 +38,7 @@ public class NativeQueryTests {
 
     @Test
     public void testNativeQuery_WhereClouse_NamedParam() {
-        Query query = em.createNativeQuery("SELECT * FROM COURSE_DETAILS WHERE id=:id", Course.class);
+        Query query = em.createNativeQuery("SELECT * FROM COURSE WHERE id=:id", Course.class);
         query.setParameter("id", 1000L);
         List<Course> results = query.getResultList();
         assertEquals(1, results.size());
@@ -47,7 +47,7 @@ public class NativeQueryTests {
     @Transactional
     @Test
     public void update() {
-        Query query = em.createNativeQuery("UPDATE COURSE_DETAILS SET last_updated_time=SYSDATE()", Course.class);
+        Query query = em.createNativeQuery("UPDATE COURSE SET last_updated_time=SYSDATE()", Course.class);
         assertEquals(4, query.executeUpdate());
     }
 

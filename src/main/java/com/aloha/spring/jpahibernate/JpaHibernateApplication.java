@@ -35,14 +35,14 @@ public class JpaHibernateApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		courseRepo.addReviewForCourse(1000l, new Review("4", "Very Good!"), new Review("5", "Awsome!"));
-		log.info("End");
+		// courseRepo.addReviewForCourse(1000l, new Review("4", "Very Good!"), new Review("5", "Awsome!"));
+		// log.info("End");
 		// studentRepo.insertStudentAndCourse(new Student("Aloha"), new Course("Spring JPA"));
-		empRepo.save(new FullTimeEmployee("Peter Parker", BigDecimal.valueOf(115000.0)));
-		empRepo.save(new PartTimeEmployee("Bruce Wayne", BigDecimal.valueOf(55.0)));
-		log.info("Employee: {}", empRepo.findAllEmployee());
-		log.info("Part time employee: {}", empRepo.findAllPartTimeEmployee());
-		log.info("Full time employee: {}", empRepo.findAllFullTimeEmployee());
+		// empRepo.save(new FullTimeEmployee("Peter Parker", BigDecimal.valueOf(115000.0)));
+		// empRepo.save(new PartTimeEmployee("Bruce Wayne", BigDecimal.valueOf(55.0)));
+		// log.info("Employee: {}", empRepo.findAllEmployee());
+		// log.info("Part time employee: {}", empRepo.findAllPartTimeEmployee());
+		// log.info("Full time employee: {}", empRepo.findAllFullTimeEmployee());
 	}
 
 }

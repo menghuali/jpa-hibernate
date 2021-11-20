@@ -26,7 +26,7 @@ import lombok.ToString;
 @ToString
 @NoArgsConstructor
 @Entity
-@Table(name = "CourseDetails")
+@Table(name = "Course")
 @NamedQueries(value = { @NamedQuery(name = "query_get_all_courses", query = "SELECT c FROM Course c"),
         @NamedQuery(name = "query_find_course_spider", query = "SELECT c FROM Course c WHERE name LIKE '%Spider%'") })
 public class Course {
