@@ -40,7 +40,7 @@ public class JpaHibernateApplication implements CommandLineRunner {
 		// studentRepo.insertStudentAndCourse(new Student("Aloha"), new Course("Spring JPA"));
 		empRepo.save(new FullTimeEmployee("Peter Parker", BigDecimal.valueOf(115000.0)));
 		empRepo.save(new PartTimeEmployee("Bruce Wayne", BigDecimal.valueOf(55.0)));
-		// log.info("Employee: {}", empRepo.findAllEmployee());
+		log.info("Employee: {}", empRepo.findAllEmployee());
 		log.info("Part time employee: {}", empRepo.findAllPartTimeEmployee());
 		log.info("Full time employee: {}", empRepo.findAllFullTimeEmployee());
 	}
