@@ -1,6 +1,7 @@
 package com.aloha.spring.jpahibernate.repo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -15,6 +16,7 @@ import com.aloha.spring.jpahibernate.entity.Student;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 public class JPQLTests {
@@ -98,6 +100,49 @@ public class JPQLTests {
       assertEquals(1, students.size());
       Student student = students.get(0);
       assertEquals("Peter Parker", student.getName());
+   }
+
+   @SuppressWarnings("all")
+   @Transactional
+   @Test
+   public void testJoin() {
+      List<Object[]> result = em.createQuery("SELECT c, s FROM Course c JOIN c.students s").getResultList();
+      assertEquals(5, result.size());
+      result.forEach(e -> {
+         Course course = (Course) e[0];
+         List<Student> students = course.getStudents();
+         assertNotNull(students);
+         assertFalse(students.isEmpty());
+      });
+   }
+
+   @SuppressWarnings("all")
+   @Transactional
+   @Test
+   public void testLeftJoin() {
+      List<Object[]> result = em.createQuery("SELECT c, s FROM Course c LEFT JOIN c.students s").getResultList();
+      assertEquals(6, result.size());
+
+      Course course2k = null;
+      for (Object[] objects : result) {
+         Course course = (Course) objects[0];
+         if (course.getId() == 2000L) {
+            course2k = course;
+            break;
+         } else
+            assertFalse(course.getStudents().isEmpty());
+      }
+      assertNotNull(course2k);
+      List<Student> students = course2k.getStudents();
+      assertTrue(students.isEmpty());
+   }
+
+   @SuppressWarnings("all")
+   @Transactional
+   @Test
+   public void testCrossJoin() {
+      List<Object[]> result = em.createQuery("SELECT c, s FROM Course c, Student s").getResultList();
+      assertEquals(12, result.size());
    }
 
 }
