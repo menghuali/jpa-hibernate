@@ -15,6 +15,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -50,6 +52,7 @@ public class Course {
     @CreationTimestamp
     private LocalDateTime createdTime;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "courses") // Make Student the owner of relationship
     @Getter
     private List<Student> students = new ArrayList<>();
