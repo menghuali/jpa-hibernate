@@ -17,6 +17,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.transaction.annotation.Transactional;
 
 // @DataJpaTest (it doesn't work with tests of saving/updating)
 @SpringBootTest
@@ -63,7 +64,6 @@ public class CourseRepoJpaDataRepoTests {
     @Test
     @DirtiesContext
     public void pagination() {
-        // repo.deleteAll();
         for (int i = 0; i < 100; i++)
             repo.save(new Course("Course - " + i));
 
@@ -80,6 +80,31 @@ public class CourseRepoJpaDataRepoTests {
             pageCount++;
         }
         assertEquals(6, pageCount);
+    }
+
+    @Test
+    public void findByName() {
+        List<Course> courses = repo.findByName("Become A Spider in 50 Steps");
+        assertEquals(1, courses.size());
+    }
+
+    @Test
+    public void countByName() {
+        assertEquals(1L, repo.countByName("Become A Spider in 50 Steps"));
+    }
+
+    @Transactional
+    @Test
+    @DirtiesContext
+    public void deleteByName() {
+        List<Course> courses = repo.deleteByName("Become A Spider in 50 Steps");
+        assertEquals(1, courses.size());
+    }
+
+    @Test
+    public void findCourseByNameJPQLNamedParam() {
+        List<Course> courses = repo.findCourseByNameJPQLNamedParam("%Steps");
+        assertEquals(4, courses.size());
     }
 
 }
