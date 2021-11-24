@@ -59,7 +59,7 @@ public class CourseRepo {
      * 
      * @return the record from DB
      */
-    public Course playWithEntityManager_Refresh() {
+    public Course playWithEntityManagerRefresh() {
         Course course = new Course("Play with Entity Manager - 2");
         em.persist(course);
         em.flush();

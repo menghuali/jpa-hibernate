@@ -74,7 +74,7 @@ public class CourseRepoTests {
     @DirtiesContext
     @Test
     public void testPlayWithEntityManager_2() {
-        Course course = repo.playWithEntityManager_Refresh();
+        Course course = repo.playWithEntityManagerRefresh();
         assertEquals("Play with Entity Manager - 2", course.getName());
     }
 
@@ -82,10 +82,10 @@ public class CourseRepoTests {
     public void testNameNullable() {
         try {
             repo.save(new Course());
-            fail("Exception should occur");
         } catch (DataIntegrityViolationException e) {
-            e.printStackTrace();
+            return;
         }
+        fail("Exception should occur");
     }
 
     @DirtiesContext
@@ -101,10 +101,8 @@ public class CourseRepoTests {
     public void testLastUpdatedTime() throws InterruptedException {
         Course course = repo.findById(1000L);
         LocalDateTime updatedTime1 = course.getLastUpdatedTime();
-        Thread.sleep(200);
         course.setName(course.getName() + " Updated");
         repo.save(course);
-
         course = repo.findById(1000L);
         assertTrue(updatedTime1.compareTo(course.getLastUpdatedTime()) < 0);
     }
