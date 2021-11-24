@@ -12,13 +12,16 @@ import com.aloha.spring.jpahibernate.entity.Course;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.DirtiesContext;
 
 // @DataJpaTest (it doesn't work with tests of saving/updating)
 @SpringBootTest
 public class CourseRepoJpaDataRepoTests {
-    
+
     @Autowired
     private CourseRepoJpaDataRepo repo;
 
@@ -37,7 +40,7 @@ public class CourseRepoJpaDataRepoTests {
     public void saveAndUpdate() {
         Course course = new Course("New Class");
         course = repo.save(course);
-        LocalDateTime updatedTime =  course.getLastUpdatedTime();
+        LocalDateTime updatedTime = course.getLastUpdatedTime();
         course.setName("New Casss - Updated");
         course = repo.save(course);
         assertTrue(updatedTime.compareTo(course.getLastUpdatedTime()) < 0);
@@ -55,6 +58,28 @@ public class CourseRepoJpaDataRepoTests {
         assertEquals("Become A Superman in 200 Steps", courses.get(1).getName());
         assertEquals("Become A Spider in 50 Steps", courses.get(2).getName());
         assertEquals("Become A Bat in 100 Steps", courses.get(3).getName());
+    }
+
+    @Test
+    @DirtiesContext
+    public void pagination() {
+        // repo.deleteAll();
+        for (int i = 0; i < 100; i++)
+            repo.save(new Course("Course - " + i));
+
+        PageRequest pageRequest = PageRequest.of(0, 20);
+        Page<Course> page = repo.findAll(pageRequest);
+        assertEquals(20, page.getSize());
+        assertTrue(page.hasNext());
+
+        int pageCount = 1;
+        while (page.hasNext()) {
+            Pageable pageable = page.nextPageable();
+            page = repo.findAll(pageable);
+            assertTrue(page.getSize() > 0 && page.getSize() <= 20);
+            pageCount++;
+        }
+        assertEquals(6, pageCount);
     }
 
 }
