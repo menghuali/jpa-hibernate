@@ -9,8 +9,6 @@ import static org.junit.jupiter.api.Assertions.fail;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.transaction.Transactional;
-
 import com.aloha.spring.jpahibernate.entity.Course;
 import com.aloha.spring.jpahibernate.entity.Review;
 import com.aloha.spring.jpahibernate.entity.Student;
@@ -20,7 +18,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.transaction.annotation.Transactional;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @SpringBootTest
 public class CourseRepoTests {
     @Autowired
@@ -121,6 +123,20 @@ public class CourseRepoTests {
         Course course = repo.findById(1001L);
         List<Student> students = course.getStudents();
         assertEquals(2, students.size());
+    }
+
+    // This annotation makes two query in same transaction and first level cache is
+    // used
+    @Transactional
+    @Test
+    public void testFindById_firstLevelCacheDemo() {
+        Course course1 = repo.findById(1000L);
+        log.info("First query: {}", course1);
+        assertNotNull(course1);
+
+        Course course2 = repo.findById(1000L);
+        log.info("Second query: {}", course2);
+        assertNotNull(course2);
     }
 
 }
