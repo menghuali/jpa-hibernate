@@ -61,6 +61,7 @@ public class CourseRepoTests {
     public void testDeleteById() {
         Course course = repo.deleteById(2000L);
         assertNotNull(course);
+        assertTrue(course.getIsDeleted());
         assertEquals(2000L, course.getId());
         assertEquals("Become A superhero in X Steps", course.getName());
         assertNull(repo.findById(2000L));

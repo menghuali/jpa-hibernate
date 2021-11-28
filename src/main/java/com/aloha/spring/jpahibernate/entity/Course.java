@@ -13,13 +13,16 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.Where;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +36,8 @@ import lombok.ToString;
 @NamedQueries(value = { @NamedQuery(name = "query_get_all_courses", query = "SELECT c FROM Course c"),
         @NamedQuery(name = "query_find_course_spider", query = "SELECT c FROM Course c WHERE name LIKE '%Spider%'") })
 @Cacheable
+@SQLDelete(sql = "UPDATE COURSE SET IS_DELETED = true WHERE ID = ?") // SQL for Soft Delete
+@Where(clause = "IS_DELETED = false") // Do not return an entity if it is Soft Deleted
 public class Course {
 
     @Getter
@@ -62,6 +67,18 @@ public class Course {
     @OneToMany(mappedBy = "course"/* , fetch = FetchType.EAGER */) // default fetch mode is LAZY
     @Getter
     private List<Review> reviews = new ArrayList<>();
+
+    @Getter
+    @Column(columnDefinition = "boolean default false") // Default value for SQL
+    private Boolean isDeleted = false; // Default value for enity (Both are importnat)
+
+    /**
+     * Set isDeleted to true when an entity is about to be removed
+     */
+    @PreRemove
+    private void preRemove() {
+        isDeleted = true;
+    }
 
     public Course(String name) {
         this.name = name;
