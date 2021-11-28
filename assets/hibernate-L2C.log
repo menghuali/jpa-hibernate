@@ -1,0 +1,25 @@
+2021-11-27 21:27:23.328  INFO 94801 --- [nio-8080-exec-1] i.StatisticalLoggingSessionEventListener : Session Metrics {
+    136004 nanoseconds spent acquiring 1 JDBC connections;
+    0 nanoseconds spent releasing 0 JDBC connections;
+    2278632 nanoseconds spent preparing 2 JDBC statements;
+    523520 nanoseconds spent executing 2 JDBC statements;   <- Queries exeucted
+    0 nanoseconds spent executing 0 JDBC batches;
+    3820899 nanoseconds spent performing 1 L2C puts;        <- Put entity in cache
+    0 nanoseconds spent performing 0 L2C hits;              <- No entity in cache matches
+    889563 nanoseconds spent performing 1 L2C misses;       <- Cache miss
+    0 nanoseconds spent executing 0 flushes (flushing a total of 0 entities and 0 collections);
+    0 nanoseconds spent executing 0 partial-flushes (flushing a total of 0 entities and 0 collections)
+}
+
+2021-11-27 21:28:19.429  INFO 94801 --- [nio-8080-exec-2] i.StatisticalLoggingSessionEventListener : Session Metrics {
+    29344 nanoseconds spent acquiring 1 JDBC connections;
+    0 nanoseconds spent releasing 0 JDBC connections;
+    54401 nanoseconds spent preparing 1 JDBC statements;
+    164031 nanoseconds spent executing 1 JDBC statements;   <- Queires executed. This time only query.
+    0 nanoseconds spent executing 0 JDBC batches;
+    0 nanoseconds spent performing 0 L2C puts;              <- No entity put in cache
+    101208 nanoseconds spent performing 1 L2C hits;         <- Find the entity in cache
+    0 nanoseconds spent performing 0 L2C misses;            <- No cahce misses
+    0 nanoseconds spent executing 0 flushes (flushing a total of 0 entities and 0 collections);
+    0 nanoseconds spent executing 0 partial-flushes (flushing a total of 0 entities and 0 collections)
+}
