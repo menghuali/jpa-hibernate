@@ -2,6 +2,8 @@ package com.aloha.spring.jpahibernate.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -23,8 +25,9 @@ public class Review {
 
     @Setter
     @Getter
+    @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
-    private String rating;
+    private ReviewRating rating;
 
     @Setter
     @Getter
@@ -36,7 +39,7 @@ public class Review {
     @ManyToOne
     private Course course;
 
-    public Review(String rating, String description) {
+    public Review(ReviewRating rating, String description) {
         this.rating = rating;
         this.description = description;
     }

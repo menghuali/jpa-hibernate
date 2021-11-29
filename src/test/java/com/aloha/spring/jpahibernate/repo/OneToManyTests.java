@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 
 import com.aloha.spring.jpahibernate.entity.Course;
 import com.aloha.spring.jpahibernate.entity.Review;
+import com.aloha.spring.jpahibernate.entity.ReviewRating;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class OneToManyTests {
         Course current = repo.findById(1001L);
         assertEquals(2, current.getReviews().size());
 
-        repo.addReviewForCourse(1001L, new Review("4", "Very Good!"));
+        repo.addReviewForCourse(1001L, new Review(ReviewRating.FOUR, "Very Good!"));
         Course updated = repo.findById(1001L);
         assertEquals(3, updated.getReviews().size());
     }
