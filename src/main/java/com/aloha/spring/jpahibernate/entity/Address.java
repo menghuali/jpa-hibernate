@@ -1,7 +1,6 @@
 package com.aloha.spring.jpahibernate.entity;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
