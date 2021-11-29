@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 
+import com.aloha.spring.jpahibernate.entity.Address;
 import com.aloha.spring.jpahibernate.entity.Course;
 import com.aloha.spring.jpahibernate.entity.Passport;
 import com.aloha.spring.jpahibernate.entity.Student;
@@ -52,6 +53,10 @@ public class StudentRepoTests {
         assertNotNull(passport);
         assertEquals("MARVEL_1", passport.getNumber()); // Lazy Fetch will cause exception at this line IF the method is
                                                         // NOT annotatned with Transactional.
+        // Embedded property
+        Address address = student.getAddress();
+        assertEquals("20 Ingram St.", address.getStreet());
+        assertEquals("New York", address.getCity());
     }
 
     @Transactional

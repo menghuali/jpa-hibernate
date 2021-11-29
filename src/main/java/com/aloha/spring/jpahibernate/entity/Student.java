@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -50,6 +51,11 @@ public class Student {
     @JoinTable(name = "STUDENT_COURSE", joinColumns = @JoinColumn(name = "STUDENT_ID"), inverseJoinColumns = @JoinColumn(name = "COURSE_ID"))
     @Getter
     private List<Course> courses = new ArrayList<>();
+
+    @Setter
+    @Getter
+    @Embedded
+    private Address address;
 
     public Student(String name) {
         this.name = name;
